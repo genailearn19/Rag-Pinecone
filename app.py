@@ -1,3 +1,8 @@
+#==============================================================================================================
+# This script demonstrates how to use Pinecone with OpenAI embeddings.
+# It creates a Pinecone index, generates embeddings for a list of text content using OpenAI's embedding model,
+#  and upserts the embeddings into the Pinecone index.
+#==============================================================================================================
 from pinecone import Pinecone
 from pinecone import ServerlessSpec
 from dotenv import load_dotenv
@@ -8,7 +13,6 @@ from openai import OpenAI
 # Load environment variables from .env file
 #==========================================
 load_dotenv()
-
 
 #================================================================
 # Initialize Pinecone client and create index if it doesn't exist
