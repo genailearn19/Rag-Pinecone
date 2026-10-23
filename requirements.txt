@@ -1,3 +1,4 @@
 pinecone
 python-dotenv
 openai
+pypdf
