@@ -75,10 +75,9 @@ response = openai_client.embeddings.create(
     model="text-embedding-3-small",
     input=content
   )
-
 embeddings = [item.embedding for item in response.data]
 
-print("Embeddings:", embeddings)
+#print("Embeddings:", embeddings)
 
 # ==========================================
 # Prepare Pinecone vectors
