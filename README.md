@@ -7,7 +7,7 @@ OPENAI_API_KEY="Your OpenAI API key
 https://docs.pinecone.io/guides/index-data/upsert-data#upsert-vectors
 
 # Architecture Flow :
-<img width="938" height="245" alt="image" src="https://github.com/user-attachments/assets/b6097d61-2f17-4fc7-87b8-afd33458d6f5" />
+[![Architecture diagram of genailearn19/rag-pinecone](https://gitdiagram.com/genailearn19/rag-pinecone/diagram.png)](https://gitdiagram.com/genailearn19/rag-pinecone?utm_source=readme&utm_medium=picture)>
 
 #Pinecone
 <img width="959" height="512" alt="image" src="https://github.com/user-attachments/assets/426c1fc9-7d4e-41d1-ba9b-63abf69caba5" />
