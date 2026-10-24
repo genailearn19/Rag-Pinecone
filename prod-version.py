@@ -111,7 +111,7 @@ embedding_semaphore = asyncio.Semaphore(
 )
 
 PDF_PATH = Path(
-    r"E:\GEN-AI-ESWARA\Rag-Pinecone\documents\Spring-Core.pdf"
+    r"E:\GEN-AI-ESWARA\Rag-Pinecone\documents\Angular-JS.pdf"
 )
 
 def load_pdf_document(pdf_path: Path) -> dict:
@@ -259,9 +259,7 @@ def split_into_chunks(text: str) -> list[str]:
     return chunks
 
 
-def prepare_chunks(
-    documents: list[dict[str, Any]],
-) -> list[TextChunk]:
+def prepare_chunks(documents: list[dict[str, Any]],) -> list[TextChunk]:
     """Validate source documents and create stable chunk records."""
     result = []
 
@@ -279,12 +277,8 @@ def prepare_chunks(
         source = str(document.get("source", "unknown"))
         category = str(document.get("category", "general"))
 
-        for chunk_index, chunk_text in enumerate(
-            split_into_chunks(text)
-        ):
-            vector_id = stable_chunk_id(
-                document_id, chunk_index
-            )
+        for chunk_index, chunk_text in enumerate(split_into_chunks(text)):
+            vector_id = stable_chunk_id( document_id, chunk_index)
 
             result.append(
                 TextChunk(
@@ -427,9 +421,7 @@ def sync_with_retry(operation, description: str):
 # Batched embedding generation
 # ============================================================
 
-async def generate_embeddings(
-    texts: list[str],
-) -> tuple[list[list[float]], int | None]:
+async def generate_embeddings( texts: list[str],) -> tuple[list[list[float]], int | None]:
     """Generate embeddings for one bounded batch."""
     async def request():
         async with embedding_semaphore:
@@ -462,8 +454,7 @@ async def generate_embeddings(
             )
 
     usage = getattr(response, "usage", None)
-    token_count = (
-        getattr(usage, "total_tokens", None)
+    token_count = (getattr(usage, "total_tokens", None)
         if usage is not None
         else None
     )
@@ -490,10 +481,7 @@ def upsert_vectors(index, vectors: list[dict[str, Any]]):
 # Asynchronous ingestion pipeline
 # ============================================================
 
-async def ingest_documents(
-    index,
-    documents: list[dict[str, Any]],
-):
+async def ingest_documents(index,documents: list[dict[str, Any]],):
     started_at = time.perf_counter()
 
     chunks = prepare_chunks(documents)
@@ -554,15 +542,11 @@ async def ingest_documents(
 
             # Upsert in smaller, controlled batches.
             for start in range(0, len(vectors), UPSERT_BATCH_SIZE):
-                vector_batch = vectors[
-                    start:start + UPSERT_BATCH_SIZE
-                ]
+                vector_batch = vectors[start:start + UPSERT_BATCH_SIZE]
 
                 # Pinecone SDK calls are synchronous, so move them
                 # off the asyncio event loop.
-                await asyncio.to_thread(
-                    upsert_vectors, index, vector_batch
-                )
+                await asyncio.to_thread(upsert_vectors, index, vector_batch)
 
                 stats["upsert_batches_succeeded"] += 1
                 stats["chunks_uploaded"] += len(vector_batch)
@@ -749,19 +733,13 @@ async def main():
 
     try:
         # Step 1: Ingest PDF documents into Pinecone
-        # await ingest_documents(index, DOCUMENTS)
+        await ingest_documents(index, DOCUMENTS)
 
         # Step 2: Define the user's question
         question = "Spring transaction management best practices"
 
         # Step 3: Retrieve the top 5 matching PDF chunks
-        search_results = await search_vectors(
-            index=index,
-            question=question,
-            category="pdf-document",
-            top_k=5,
-        )
-
+        search_results = await search_vectors(index=index,question=question,category="pdf-document", top_k=5,)
         # Step 4: Augment the retrieved context using OpenAI LLM
         answer = await generate_llm_answer(
             question=question,
