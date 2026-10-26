@@ -45,7 +45,7 @@ index = pc.Index(index_name)
 # Step 5: Search for the most similar vectors
 search_results = index.query(
     vector=query_embedding,
-    top_k=3,
+    top_k=10,
     include_metadata=True
 )
 
