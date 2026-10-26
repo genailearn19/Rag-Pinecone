@@ -18,5 +18,6 @@ https://docs.pinecone.io/guides/index-data/upsert-data#upsert-vectors
 
 
 #Retrieve output :
-<img width="959" height="500" alt="image" src="https://github.com/user-attachments/assets/b9098085-aef8-4bdb-8769-55a99434de83" />
+<img width="956" height="500" alt="image" src="https://github.com/user-attachments/assets/e13567fe-0a05-49ad-aed0-05c01987428b" />
+
 
